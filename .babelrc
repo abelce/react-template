@@ -1,0 +1,25 @@
+{
+    "presets": [
+      ["@babel/preset-env", {
+        "modules": false,  // 关闭babel的模块化，使用webpack的模块化，这样可以使用tree-shaking
+      }],
+      "@babel/preset-react",
+    //   "@babel/preset-stage-0"
+    ],
+    "plugins": [
+
+      ["@babel/plugin-transform-runtime"],
+      [ "@babel/plugin-proposal-decorators", { "legacy": true } ],
+      [ "@babel/plugin-proposal-class-properties", {
+        "loose": true
+      }],
+      ["lodash"],
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "transform-remove-console"
+        ]
+      }
+    }
+  }

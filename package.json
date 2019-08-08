@@ -1,0 +1,58 @@
+{
+  "name": "react-template",
+  "version": "1.0.0",
+  "description": "> 本项目是根据在工作生活中总结整理出来的一套目录，结合了一点对领域模型的知识（其实一知半解）。",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "export APP_ENV=development && webpack-dev-server",
+    "testing": "export APP_ENV=testing && webpack --config webpack.config.js && npm run deploy",
+    "prod": "export APP_ENV=production && webpack --config webpack.config.js && npm run deploy",
+    "deploy": "rm -rf dist && mv build dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abelce/react-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abelce/react-template/issues"
+  },
+  "homepage": "https://github.com/abelce/react-template#readme",
+  "dependencies": {
+    "flux": "^3.1.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-lodash": "^3.3.4",
+    "css-loader": "^3.2.0",
+    "cssnano": "^4.1.10",
+    "file-loader": "^4.2.0",
+    "happypack": "^5.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "lodash": "^4.17.15",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  }
+}
