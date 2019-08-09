@@ -58,7 +58,7 @@ var webpackConfig = {
                 include: /src/,
                 exclude: [/axios/, /node_modules/, /src\/common\/assets/],
                 loader: 'babel-loader',
-              },
+            },
         ],
         noParse: [require.resolve('lodash')],
     },
@@ -75,8 +75,13 @@ var webpackConfig = {
         new webpack.HashedModuleIdsPlugin(),
     ],
     resolve: {
+        alias: {
+            '@common': __dirname + '/src/common',
+            '@page': __dirname + '/src/page',
+            '@domain': __dirname + '/src/domain',
+        },
         modules: ['src', 'node_modules'],
-        extensions: ['.js', '.jsx', '.scss', '.css', '.styl'],
+        extensions: ['.js', '.jsx', '.scss', '.css'],
     },
     optimization: {
         minimize: isDev() ? false : true,
@@ -163,15 +168,12 @@ function scssRules({
         isDev() ? 'style-loader' : MiniCssExtractPlugin.loader,
         {
             loader: 'css-loader',
-            options: global ?
-                {
-                    importLoaders: 1,
-                } :
-                {
-                    modules: true,
-                    importLoaders: 1,
-                    // localIdentName: '[name]__[local]___[hash:base64:5]',
-                },
+            options: global ? {
+                importLoaders: 1,
+            } : {
+                modules: true,
+                importLoaders: 1,
+            },
         },
         {
             loader: 'postcss-loader',
