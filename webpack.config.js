@@ -196,10 +196,6 @@ function isProd() {
     return process.env.APP_ENV === 'production';
 }
 
-function isMinimize() {
-    return !isDev();
-}
-
 function getMode() {
     return isDev() ? 'development' : 'production';
 }
