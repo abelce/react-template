@@ -1,6 +1,32 @@
 import http from '@common/utils/http';
 
-// get user infomation by id
-export function getUser(userID) {
-    return http(`/user/${userID}`);
+export function getUserAPI() {
+    return http({
+        url: `/users`,
+        method: 'get',
+    });
+}
+
+export function loginAPI(data) {
+    return http({
+        method: 'post',
+        url: '/auth',
+        data: data,
+    })
+}
+
+export function changePasswordAPI(data) {
+    return http({
+        method: 'post',
+        url:'/users/changePassword',
+        data: data,
+    })
+}
+
+export function registryAPI(data) {
+    return ({
+        method: 'post',
+        utl: '/registry',
+        data,
+    })
 }

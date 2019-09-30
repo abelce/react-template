@@ -1,18 +1,29 @@
 import axios from 'axios';
+import errors from '@common/errors/index.js';
 
-const http = axios.create({
-    baseURL: 'https://expanle.com/v1',
-    timeout: 1000,
-    headers: {
-        'content-type': 'application/json'
-    }
-})
+export const baseURL = 'http://xxxx.com/v1';
 
-http.interceptors.response.use(function (response) {
-    // Do something with response data
-    return response;
-}, function (error) {
-    return Promise.reject(error);
-});
+export function httpBase() {
+    return axios.create({
+        baseURL: baseURL,
+        timeout: 10000,
+        headers: {
+            'content-type': 'application/json',
+        }
+    })
+}
+
+function http (data) {
+    const instance = httpBase();
+    
+    instance.interceptors.response.use(function (response) {
+        return response.data;
+    }, function (error) {
+        errors.handleError(error);
+        return Promise.reject(error);
+    });
+
+    return instance(data);
+}
 
 export default http;

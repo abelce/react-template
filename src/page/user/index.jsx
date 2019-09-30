@@ -1,20 +1,10 @@
-import React from 'react';
-import PaymentMethod from './components/paymentMethod';
+import React, {useEffect, useState} from 'react';
+import './style.scss';
 
-class User extends React.Component {
-
-    componentDidMount () {
-        // throw Error('test');
-        const sc = document.createElement('script');
-        sc.src= './a.js';
-        document.querySelector('body').appendChild(sc);
-    }
-
-    render() {
-        return <div>
-            <PaymentMethod />
-        </div>
-    }
+function User(){
+    return <div className="users">
+        hello world
+    </div>
 }
 
 export default User;

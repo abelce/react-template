@@ -1,3 +1,3 @@
-import { Dispatcher } from 'src/common/utils/AppDispatcher.js';
+import { Dispatcher } from 'flux';
 
 export default new Dispatcher();

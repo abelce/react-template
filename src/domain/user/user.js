@@ -1,16 +1,29 @@
-import {User} from '@common/constants';
+import Constants from '@common/constants/user';
 
+/**
+ * 这里主要将获取到的数据和新建的数据转换成统一的格式
+ */
 class User {
-    constructor(name, phone, email, type) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.type = type;
+    constructor(data) {
+        this.name = data.name;
+        this.phone = data.phone;
+        this.email = data.email;
+        this.type = data.type;
+        this.id = data.id;
+        this.status = data.status;
+        this.description = data.description;
+        this.logoImage = data.logoImage;
+        this.address = data.address;
     }
+}
 
-    isAdmin() {
-        return this.type === User.USER_TYPE_ADMIN;
-    }
+export function FormatOperator(data) {
+    const {attributes,id,} = data;
+    return new User({
+        id,
+        ...attributes,
+    });
+    
 }
 
 export default User;

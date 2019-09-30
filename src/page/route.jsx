@@ -1,21 +1,19 @@
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import React, {Component} from 'react';
-import {} from 'antd';
+import { hot } from 'react-hot-loader';
+const Users = React.lazy(() => import('./user'));
 
-// import Login from ''
+class Routes extends React.Component {
 
-class Router extends Component {
+    componentDidMount() {}
 
     render() {
-        return (
+        return <React.Suspense fallback={<div>loading...</div>}>
             <Switch>
-                {/* <Route path="/login" component={Login} /> */}
-                <Route>
-                    <Switch>
-                        
-                    </Switch>
-                </Route>
+                <Route exact={true} path="/" component={Users}/>
             </Switch>
-        )
+        </React.Suspense>
     }
 }
+
+export default process.env.NODE_ENV === 'development' ? hot(module)(Routes): Routes;

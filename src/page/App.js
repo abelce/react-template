@@ -1,11 +1,18 @@
-import '@common/errors/index.js'
+import '@common/errors/index'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '@common/assets/stylesheet/index.scss'
-import User from './user/index.jsx';
+import { BrowserRouter } from 'react-router-dom';
+import '@common/assets/style/index.scss';
+import Routes from './route';
 
 function render() {
-    ReactDOM.render(<User/>, document.getElementById('app'));
+    ReactDOM.render(
+        <div>
+            <BrowserRouter>
+                <Routes/>
+            </BrowserRouter>
+        </div>,
+        document.getElementById('app'));
 }
 
 render();

@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 var webpackConfig = {
     mode: getMode(),
@@ -11,7 +10,7 @@ var webpackConfig = {
         disableHostCheck: true,
         host: '0.0.0.0',
         hot: true,
-        port: 3000,
+        port: 3010,
         contentBase: __dirname + '/build',
         historyApiFallback: true,
     },
@@ -42,16 +41,26 @@ var webpackConfig = {
             },
             {
                 test: /\.scss$/,
-                exclude: /\/src\/common\/assets\/stylesheets\//,
-                loader: scssRules({
-                    global: false,
-                }),
-            },
-            {
-                test: /\/src\/common\/assets\/stylesheets\//,
-                loader: scssRules({
-                    global: true,
-                }),
+                exclude: /\/src\/common\/assets\/style\//,
+                use: [
+                    isDev() ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options:{
+                            importLoaders: 1,
+                        },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: function () {
+                                return [require('autoprefixer')];
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ]
             },
             {
                 test: /\.jsx$|\.js$/,
@@ -64,7 +73,7 @@ var webpackConfig = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: __dirname + '/src/common/assets/public/index.ejs',
+            template: __dirname + '/src/common/assets/index.ejs',
             minify: {
                 collapseWhitespace: true,
             },
@@ -72,7 +81,6 @@ var webpackConfig = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.APP_ENV),
         }),
-        new webpack.HashedModuleIdsPlugin(),
     ],
     resolve: {
         alias: {
@@ -96,11 +104,11 @@ var webpackConfig = {
             cacheGroups: {
                 common: {
                     test: /.js$/,
-                    name: 'common', // 名字，设置为true，表示根据模块和缓存组自动生成，
-                    chunks: 'initial', // initial: 初始块，all: 所有块，async：按需加载
+                    name: 'common',
+                    chunks: 'initial',
                     priority: 2,
                     minChunks: 2, // 最小引用次数
-                    reuseExistingChunk: true, // 是否使用已经存在的chunk, 前提是代码没有变化，
+                    reuseExistingChunk: true,
                 },
                 styles: {
                     name: 'styles',
@@ -112,22 +120,6 @@ var webpackConfig = {
             },
         },
         minimizer: [
-            new OptimizeCSSAssetsPlugin({
-                assetNameRegExp: /\.css$/g,
-                cssProcessor: require('cssnano'),
-                cssProcessorPluginOptions: {
-                    preset: [
-                        'default',
-                        {
-                            discardComments: {
-                                removeAll: true,
-                            },
-                            normalizeUnicode: false,
-                        },
-                    ],
-                },
-                canPrint: true,
-            }),
             new UglifyJsPlugin({
                 exclude: /\.min\.js$/,
                 cache: true,
@@ -137,7 +129,6 @@ var webpackConfig = {
                 uglifyOptions: {
                     compress: {
                         unused: true,
-                        warnings: false,
                         drop_debugger: true,
                     },
                     output: {
@@ -148,6 +139,12 @@ var webpackConfig = {
         ],
     },
 };
+
+if (isDev()) {
+    webpackConfig.plugins.push(
+        new webpack.HashedModuleIdsPlugin()
+    )
+}
 
 if (isProd()) {
     Reflect.deleteProperty(webpackConfig, 'devtool');
@@ -161,39 +158,12 @@ if (isProd()) {
 
 module.exports = webpackConfig;
 
-function scssRules({
-    global
-}) {
-    return [
-        isDev() ? 'style-loader' : MiniCssExtractPlugin.loader,
-        {
-            loader: 'css-loader',
-            options: global ? {
-                importLoaders: 1,
-            } : {
-                modules: true,
-                importLoaders: 1,
-            },
-        },
-        {
-            loader: 'postcss-loader',
-            options: {
-                ident: 'postcss',
-                plugins: function () {
-                    return [require('autoprefixer')];
-                },
-            },
-        },
-        'sass-loader',
-    ];
-}
-
 function isDev() {
-    return process.env.APP_ENV === 'development';
+    return process.env.NODE_ENV === 'development';
 }
 
 function isProd() {
-    return process.env.APP_ENV === 'production';
+    return process.env.NODE_ENV === 'production';
 }
 
 function getMode() {

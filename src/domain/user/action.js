@@ -1,22 +1,27 @@
 import {
-    USER_GET
+    USER_GET,
+    REGISTRY,
 } from '@common/constants/user';
-import Dispatcher from '@common/utils/AppDispatcher';
+import AppDispatcher from '@common/utils/AppDispatcher';
 import {
-    getUser
+    getUserAPI,
+    registryAPI,
 } from '@common/api/userAPI';
 
-// get user
-function getUser(userID) {
-    getUser(userID)
+export const getUser = function(userID) {
+    getUserAPI(userID)
         .then(function (data) {
-            Dispatcher.dispatch({
+            AppDispatcher.dispatch({
                 type: USER_GET,
-                payload: data,
+                payload: data.data,
             })
         })
 }
 
-export default {
-    getUser,
-};
+export const registry = async function(data) {
+    const p = await registryAPI(data)
+    AppDispatcher.dispatch({
+        type: REGISTRY,
+        payload: p.data,
+    });
+}
