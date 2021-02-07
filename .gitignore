@@ -27,3 +27,5 @@ yarn-error.log*
 /.next/
 # /_next/cache/next-babel-loader/
 # /_next/
+# node_modules/
+build/
