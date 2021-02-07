@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "inlineSources": true,
+    "sourceRoot": "/",
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "baseUrl": ".",
+    "outDir": "lib",
+    "allowJs": true,
+    "checkJs": false,
+    "paths": {},
+    "plugins": [{ "transform": "ts-optchain/transform" }],
+    "jsx": "react",
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "importHelpers": true,
+    "noImplicitThis": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["esnext", "es7", "es6", "es5", "es2015.promise", "es2015.generator", "dom"],
+    "skipLibCheck": true,
+    "typeRoots": ["node", "node_modules/@types", "global.d.ts"]
+  }
+}

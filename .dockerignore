@@ -1,0 +1,15 @@
+
+vendor/
+Dockerfile
+*.md
+_next/
+.next/
+dist/
+node_modules
+docker.sh
+.prettierignore
+.prettierrc
+.git
+.eslintrc.js
+.gitignore
+nginx.conf
