@@ -95,11 +95,11 @@
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx,json}": [
       "prettier --write",
-      "git add"
+      "git add ."
     ],
     "./**/*.{css,scss,sass,less}": [
       "tylelint --fix",
-      "git add"
+      "git add ."
     ]
   }
 }
