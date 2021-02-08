@@ -2,7 +2,11 @@
     "presets": [
       ["@babel/preset-env", {
         "modules": false,  // 关闭babel的模块化，使用webpack的模块化，这样可以使用tree-shaking
+        "targets": {
+          "node": "current"
+        }
       }],
+      "@babel/preset-typescript",
       "@babel/preset-react",
     ],
     "plugins": [
